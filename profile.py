@@ -40,6 +40,8 @@ for i in range(6):
   if i == 0:
     node = request.XenVM("head")
     node.routable_control_ip = "true"
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installnfshead.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installnfshead.sh"))
   elif i == 1:
     node = request.XenVM("metadata")
   elif i == 2:
@@ -48,6 +50,8 @@ for i in range(6):
     node = request.XenVM("compute-" + str(i-2))
     node.cores = 4
     node.ram = 4096
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installnfsscratch.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installnfsscratch.sh"))
     
   node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD"
   
@@ -63,9 +67,9 @@ for i in range(6):
   
   # This code segment is added per Benjamin Walker's solution to address the StrictHostKeyCheck issue of ssh
   node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/ssh_setup.sh"))
-  node.addService(pg.Execute(shell="sh", command="sudo -H -u lngo bash -c '/local/repository/ssh_setup.sh'"))
+  node.addService(pg.Execute(shell="sh", command="sudo -H -u ne903386 bash -c '/local/repository/ssh_setup.sh'"))
  
-  node.addService(pg.Execute(shell="sh", command="sudo su lngo -c 'cp /local/repository/source/* /users/lngo'"))
+  node.addService(pg.Execute(shell="sh", command="sudo su ne903386 -c 'cp /local/repository/source/* /users/ne903386'"))
   
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
