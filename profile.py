@@ -46,12 +46,14 @@ for i in range(6):
     node = request.XenVM("metadata")
   elif i == 2:
     node = request.XenVM("storage")
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installnfsstorage.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installnfsstorage.sh"))
   else:
     node = request.XenVM("compute-" + str(i-2))
     node.cores = 4
     node.ram = 4096
-    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installnfsscratch.sh"))
-    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installnfsscratch.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/mapcomputenodes.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/mapcomputenodes.sh"))
     
   node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD"
   

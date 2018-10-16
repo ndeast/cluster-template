@@ -10,3 +10,7 @@ echo "/software 192.168.1.6(rw,sync,no_root_squash,no_all_squash)" >> /etc/expor
 
 systemctl restart nfs-server
 
+mkdir -p /mnt/nfs/scratch
+mount -t nfs 192.168.1.3:/scratch /mnt/nfs/scratch
+touch /mnt/nfs/software/test_nfs_file_head_scratch
+
