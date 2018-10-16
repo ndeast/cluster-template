@@ -8,8 +8,8 @@ mount -t nfs 192.168.1.3:/scratch /mnt/nfs/scratch
 touch /mnt/nfs/software/test_nfs_file
 touch /mnt/nfs/software/test_nfs_file_scratch
 
-echo "export PATH='$PATH:/software/openmpi/3.1.2/bin'" >> /users/ne903386/.bashrc
-echo "export LD_LIBRARY_PATH='$LD_LIBRARY_PATH:/software/openmpi/3.1.2/lib/'" >> /users/ne903386/.bashrc
+echo "export PATH='$PATH:/mnt/nfs/software/openmpi/3.1.2/bin'" >> /users/ne903386/.bashrc
+echo "export LD_LIBRARY_PATH='$LD_LIBRARY_PATH:/mnt/nfs/software/openmpi/3.1.2/lib/'" >> /users/ne903386/.bashrc
 
 
 
