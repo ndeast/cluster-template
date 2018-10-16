@@ -42,6 +42,8 @@ for i in range(6):
     node.routable_control_ip = "true"
     node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installnfshead.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installnfshead.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_mpi.sh"))
+  node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_mpi.sh"))
   elif i == 1:
     node = request.XenVM("metadata")
   elif i == 2:
@@ -64,8 +66,6 @@ for i in range(6):
   
   node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/passwordless.sh"))
   node.addService(pg.Execute(shell="sh", command="sudo /local/repository/passwordless.sh"))
-  node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_mpi.sh"))
-  node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_mpi.sh"))
   
   # This code segment is added per Benjamin Walker's solution to address the StrictHostKeyCheck issue of ssh
   node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/ssh_setup.sh"))
