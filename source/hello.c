@@ -23,6 +23,6 @@ int main(int argc, char** argv) {
   printf("Hello world from processor %s, rank %d out of %d processes\n",
            proc_name, my_rank, size);
 
-  /* Finalize the MPI environment. */
+  /* Finalize the MPI environment.   hi*/
   MPI_Finalize();
 }
