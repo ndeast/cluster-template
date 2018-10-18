@@ -10,7 +10,7 @@ done
 
 systemctl restart nfs-server
 
-mkdir -p /mnt/nfs/scratch
-mount -t nfs 192.168.1.3:/scratch /mnt/nfs/scratch
-touch /mnt/nfs/scratch/test_nfs_file_head_scratch
+mkdir -p /scratch
+mount -t nfs 192.168.1.3:/scratch /scratch
+touch /scratch/test_nfs_file_head_scratch
 
