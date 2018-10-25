@@ -93,4 +93,14 @@ cat $PUBKEY >> ${CUSTOM_SSHDIR}/authorized_keys
 chown -R ${CUSTOM_USER}:${CUSTOM_GROUP} ${CUSTOM_SSHDIR}
 su ne903386 -c 'echo "StrictHostKeyChecking no" > ${CUSTOM_SSHDIR}/config'
 
+sudo touch /users/ne903386/.ssh/config
+sudo echo "StrictHostKeyChecking no" | sudo tee --append /users/ne903386/.ssh/config
+sudo echo "PasswordAuthentication yes" | sudo tee --append /users/ne903386/.ssh/config
+
+ssudo echo "StrictHostKeyChecking no" | sudo tee --append /root/.ssh/config
+sudo echo "PasswordAuthentication yes" | sudo tee --append /root/.ssh/config
+
+sudo echo "StrictHostKeyChecking no" | sudo tee --append /etc/ssh/sshd_config
+sudo echo "PasswordAuthentication yes" | sudo tee --append /etc/ssh/sshd_config
+
 exit 0
