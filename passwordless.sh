@@ -78,9 +78,9 @@ mv ${PUBKEY}.tmp $PUBKEY
 # are generating the same keypair can login to us.  Ensure correct
 # minimal permissions necessary for ssh.
 #
-touch $SSHDIR/authorized_keys
-cat $PUBKEY >> $SSHDIR/authorized_keys
-chmod 600 $SSHDIR/authorized_keys
+sudo touch $SSHDIR/authorized_keys
+sudo cat $PUBKEY >> $SSHDIR/authorized_keys
+sudo chmod 600 $SSHDIR/authorized_keys
 
 
 CUSTOM_USER=ne903386
@@ -90,14 +90,14 @@ CUSTOM_GROUP=`id -gn ${CUSTOM_USER}`
 cp $PRIVKEY ${CUSTOM_SSHDIR}
 cp $PUBKEY ${CUSTOM_SSHDIR}
 cat $PUBKEY >> ${CUSTOM_SSHDIR}/authorized_keys
-chown -R ${CUSTOM_USER}:${CUSTOM_GROUP} ${CUSTOM_SSHDIR}
+sudo chown -R ${CUSTOM_USER}:${CUSTOM_GROUP} ${CUSTOM_SSHDIR}
 su ne903386 -c 'echo "StrictHostKeyChecking no" > ${CUSTOM_SSHDIR}/config'
 
 sudo touch /users/ne903386/.ssh/config
 sudo echo "StrictHostKeyChecking no" | sudo tee --append /users/ne903386/.ssh/config
 sudo echo "PasswordAuthentication yes" | sudo tee --append /users/ne903386/.ssh/config
 
-ssudo echo "StrictHostKeyChecking no" | sudo tee --append /root/.ssh/config
+sudo echo "StrictHostKeyChecking no" | sudo tee --append /root/.ssh/config
 sudo echo "PasswordAuthentication yes" | sudo tee --append /root/.ssh/config
 
 sudo echo "StrictHostKeyChecking no" | sudo tee --append /etc/ssh/sshd_config
