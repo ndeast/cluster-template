@@ -44,6 +44,8 @@ for i in range(3):
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installnfshead.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_mpi.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_mpi.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installmunge.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installmunge.sh"))
   elif i == 1:
     node = request.XenVM("metadata")
   elif i == 2:
@@ -54,6 +56,8 @@ for i in range(3):
     node = request.XenVM("compute-" + str(i-2))
     node.cores = 4
     node.ram = 4096
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installmunge_comp.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installmunge_comp.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/mapcomputenodes.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/mapcomputenodes.sh"))
     
