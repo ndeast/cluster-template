@@ -20,7 +20,7 @@ sudo chmod 700 /etc/munge/munge.key
 
 for i in {1..3}; do
 sudo scp /etc/munge/munge.key ne903386@192.168.1.$i:~/
-sudo ssh -t ne903386@192.168.1.$i sudo cp ~/munge.key /etc/munge; sudo chmod 700 /etc/munge/munge.key; chown munge: /etc/munge/munge.key
+sudo ssh -t ne903386@192.168.1.$i sudo cp /users/ne903386/munge.key /etc/munge; sudo chmod 700 /etc/munge/munge.key; chown munge: /etc/munge/munge.key
 done
 
 
