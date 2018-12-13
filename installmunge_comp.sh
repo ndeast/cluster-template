@@ -21,3 +21,26 @@ sudo chmod 0700 /etc/munge/ /var/log/munge/
 
 sudo systemctl enable munge
 sudo systemctl start munge
+
+
+#installing slurm
+sudo yum install openssl openssl-devel pam-devel numactl numactl-devel hwloc hwloc-devel lua lua-devel readline-devel rrdtool-devel ncurses-devel man2html libibmad libibumad -y
+
+sudo yum --nogpgcheck localinstall /software/slurm-rpms/* -y
+
+sudo cp /scratch/slurm.conf /etc/slurm/slurm.conf
+sudo mkdir /var/spool/slurmd
+sudo chown slurm: /var/spool/slurmd
+sudo chmod 755 /var/spool/slurmd
+sudo touch /var/log/slurmd.log
+sudo chown slurm: /var/log/slurmd.log
+
+sudo yum install ntp -y
+sudo chkconfig ntpd on
+sudo ntpdate pool.ntp.org
+sudo systemctl start ntpd
+
+sudo systemctl enable slurmd
+sudo systemctl start slurmd
+
+
