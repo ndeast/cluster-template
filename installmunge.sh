@@ -15,13 +15,17 @@ sudo yum install munge munge-libs munge-devel -y
 /usr/sbin/create-munge-key 
 
 sudo bash -c "echo "key" > /etc/munge/munge.key"
-chown munge: /etc/munge/munge.key
-sudo chmod 700 /etc/munge/munge.key 
+sudo chown munge: /etc/munge/munge.key
+sudo chmod 400 /etc/munge/munge.key 
 
-for i in {1..3}; do
-sudo scp /etc/munge/munge.key ne903386@192.168.1.$i:~/
-sudo ssh -t ne903386@192.168.1.$i sudo cp /users/ne903386/munge.key /etc/munge; sudo chmod 700 /etc/munge/munge.key; chown munge: /etc/munge/munge.key
-done
+sudo cp /etc/munge/munge.key /scratch/munge.key
+
+sudo chown -R munge: /etc/munge/ /var/log/munge/
+sudo chmod 0700 /etc/munge/ /var/log/munge/
+
+sudo systemctl enable munge
+sudo systemctl start munge
+
 
 
 
