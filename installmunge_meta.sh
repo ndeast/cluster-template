@@ -62,7 +62,8 @@ sudo chmod 777 /var/run/slurmdbd.pid
 sudo systemctl enable mariadb
 sudo systemctl start mariadb
 
-sudo mysql "-psecretkey" < "/scratch/createsql.sql"
+
+sudo mysql "-u root" < "/scratch/createsql.sh"
 
 
 sudo yum install ntp -y
