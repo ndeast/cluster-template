@@ -49,6 +49,9 @@ sudo chmod 755 /var/spool/slurmd
 sudo touch /var/log/slurmd.log
 sudo chown slurm: /var/log/slurmd.log
 
+sudo systemctl stop firewalld
+sudo systemctl disable firewalld
+
 sudo yum install ntp -y
 sudo chkconfig ntpd on
 sudo ntpdate pool.ntp.org
