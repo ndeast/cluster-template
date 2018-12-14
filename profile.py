@@ -60,7 +60,6 @@ for i in range(6):
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installnfsstorage.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo cp /local/repository/slurm.conf /scratch/slurm.conf"))
     node.addService(pg.Execute(shell="sh", command="sudo cp /local/repository/slurmdbd.conf /scratch/slurmdbd.conf"))
-    node.addService(pg.Execute(shell="sh", command="sudo cp /local/repository/createsql.sql /scratch/createsql.sql"))
   else:
     node = request.XenVM("compute-" + str(i-2))
     node.cores = 4
