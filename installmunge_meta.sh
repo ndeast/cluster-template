@@ -65,6 +65,8 @@ sudo systemctl start mariadb
 
 sudo mysql "-u root" < "/scratch/createsql.sh"
 
+sudo systemctl stop firewalld
+sudo systemctl disable firewalld
 
 sudo yum install ntp -y
 sudo chkconfig ntpd on
