@@ -32,6 +32,7 @@ sudo chown -R munge: /etc/munge/ /var/log/munge/
 sudo chmod 0700 /etc/munge/ /var/log/munge/
 
 #wait while all nodes have installed and recieve secret key
+#Use while loops as checkpoints and a way to get all the processes to run together correctly
 while [! -f /scratch/metafinish.done]
 do 
 sleep 10s
