@@ -50,9 +50,9 @@ sudo chmod 755 /var/spool/slurmdbd
 sudo touch /var/log/slurmdbd.log
 sudo chown slurm: /var/log/slurmdbd.log
 sudo chmod 755 /var/log/slurmdbd.log
-#sudo touch /var/run/slurmdbd.pid
-#sudo chown slurm: /var/run/slurmdbd.pid
-#sudo chmod 777 /var/run/slurmdbd.pid
+sudo touch /var/run/slurmdbd.pid
+sudo chown slurm: /var/run/slurmdbd.pid
+sudo chmod 777 /var/run/slurmdbd.pid
 
 sudo yum install ntp -y
 sudo chkconfig ntpd on
