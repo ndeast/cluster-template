@@ -1,5 +1,4 @@
 #!/bin/bash 
-set -x 
 
 #create global users
 export MUNGEUSER=991
@@ -15,10 +14,13 @@ sudo yum install epel-release
 #intall munge
 sudo yum install munge munge-libs munge-devel -y
 
-/usr/sbin/create-munge-key 
+sudo yum install rng-tools -y
+sudo rngd -r /dev/urandom --no-tpm=1
+
+sudo /usr/sbin/create-munge-key 
 
 #creating a key
-sudo bash -c "echo "key" > /etc/munge/munge.key"
+#sudo bash -c "echo "key" > /etc/munge/munge.key"
 sudo chown munge: /etc/munge/munge.key
 sudo chmod 400 /etc/munge/munge.key 
 
