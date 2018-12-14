@@ -9,34 +9,49 @@ export SLURMUSER=992
 sudo groupadd -g $SLURMUSER slurm
 sudo useradd  -m -c "SLURM workload manager" -d /var/lib/slurm -u $SLURMUSER -g slurm  -s /bin/bash slurm
 
+#install EPEL repository
 sudo yum install epel-release
+
+#intall munge
 sudo yum install munge munge-libs munge-devel -y
 
 /usr/sbin/create-munge-key 
 
+#creating a key
 sudo bash -c "echo "key" > /etc/munge/munge.key"
 sudo chown munge: /etc/munge/munge.key
 sudo chmod 400 /etc/munge/munge.key 
 
+#sending key to scratch directory
 sudo cp /etc/munge/munge.key /scratch/munge.key
 
+#change permissions
 sudo chown -R munge: /etc/munge/ /var/log/munge/
 sudo chmod 0700 /etc/munge/ /var/log/munge/
 
+#wait while all nodes have installed and recieve secret key
+while [! -f /scratch/metafinish.done]
+do 
+sleep 10s
+done
+
+#start munge
 sudo systemctl enable munge
 sudo systemctl start munge
 
-
+#install Slurm dependancies
 yum install openssl openssl-devel pam-devel numactl numactl-devel hwloc hwloc-devel lua lua-devel readline-devel rrdtool-devel ncurses-devel man2html libibmad libibumad -y
 
+#download latest version of slurm
 cd /software
 sudo wget http://www.schedmd.com/download/latest/slurm-18.08.3.tar.bz2
 sudo yum install rpm-build
 
-#install perl due to dependancy
+#install perl
 sudo yum install perl -y
 sudo yum install 'perl(ExtUtils::MakeMaker)' -y
 
+#install rpmbuild
 sudo rpmbuild -ta slurm-18.08.3.tar.bz2
 
 #create slurm-rpm directory and copyt rpmbuild into it
@@ -56,6 +71,7 @@ sudo chown slurm: /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 #sudo touch /var/run/slurmctld
 #sudo chmod 777 /var/run/slurmctld
 
+#install sync clock
 sudo yum install ntp -y
 sudo chkconfig ntpd on
 sudo ntpdate pool.ntp.org
@@ -65,6 +81,6 @@ systemctl enable slurmd.service
 systemctl start slurmd.service
 systemctl status slurmd.service
 
-#sudo touch /scratch/head.fin
+sudo touch /scratch/slurm.done
 #sudo systemctl restart slurmctld
 
