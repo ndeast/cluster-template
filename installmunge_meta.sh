@@ -12,14 +12,23 @@ sudo useradd  -m -c "SLURM workload manager" -d /var/lib/slurm -u $SLURMUSER -g 
 sudo yum install epel-release -y
 sudo yum install munge munge-libs munge-devel -y
 
+#wait for head node to copy key
+while [! -f /scratch/munge.key]
+do 
+sleep 10
+done
+
 sudo cp /scratch/munge.key /etc/munge/munge.key
 sudo chown munge: /etc/munge/munge.key
 sudo chmod 400 /etc/munge/munge.key
 
+#change permissions
 sudo chown -R munge: /etc/munge/ /var/log/munge/
 sudo chmod 0700 /etc/munge/ /var/log/munge/
 
-#sudo touch /scratch/metakey.fin
+#wait for all nodes to finish installing
+sleep 2m
+sudo touch /scratch/metafinish.done
 
 sudo systemctl enable munge
 sudo systemctl start munge
@@ -27,6 +36,11 @@ sudo systemctl start munge
 
 #install slurm
 sudo yum install openssl openssl-devel pam-devel numactl numactl-devel hwloc hwloc-devel lua lua-devel readline-devel rrdtool-devel ncurses-devel man2html libibmad libibumad -y
+
+while [! -f /scratch/slurm.done]
+do
+sleep 5s
+done
 
 sudo yum --nogpgcheck localinstall /software/slurm-rpms/* -y
 
