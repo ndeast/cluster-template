@@ -60,7 +60,10 @@ sudo cp /root/rpmbuild/RPMS/x86_64/* /software/slurm-rpms
 
 sudo yum --nogpgcheck localinstall /software/slurm-rpms/* -y
 
-#sudo cp /scratch/slurm.conf /etc/slurm/slurm.conf
+#copy the slurm.conf file over
+sudo cp /scratch/slurm.conf /etc/slurm/slurm.conf
+
+#configuration
 sudo mkdir /var/spool/slurmctld
 sudo chown slurm: /var/spool/slurmctld
 sudo chmod 755 /var/spool/slurmctld
@@ -77,10 +80,22 @@ sudo chkconfig ntpd on
 sudo ntpdate pool.ntp.org
 sudo systemctl start ntpd
 
+while [! -f /scratch/daemon.done]
+do
+sleep 5s
+done
+
 systemctl enable slurmd.service
 systemctl start slurmd.service
 systemctl status slurmd.service
 
-sudo touch /scratch/slurm.done
-#sudo systemctl restart slurmctld
+#notify meta that slurmctld daemon done
+sudo touch /scratch/slurmctlddaemon.done
+
+while [! -f /scratch/cluster.done]
+do
+sleep 5s
+done
+
+sudo systemctl restart slurmctld
 
