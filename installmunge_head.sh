@@ -77,6 +77,9 @@ sudo chown slurm: /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 #sudo touch /var/run/slurmctld
 #sudo chmod 777 /var/run/slurmctld
 
+sudo systemctl stop firewalld
+sudo systemctl disable firewalld
+
 #install sync clock
 sudo yum install ntp -y
 sudo chkconfig ntpd on
