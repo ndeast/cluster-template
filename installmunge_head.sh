@@ -57,6 +57,7 @@ sudo rpmbuild -ta slurm-18.08.3.tar.bz2
 #create slurm-rpm directory and copyt rpmbuild into it
 sudo mkdir /software/slurm-rpms
 sudo cp /root/rpmbuild/RPMS/x86_64/* /software/slurm-rpms
+sudo touch /scratch/rpm.done
 
 sudo yum --nogpgcheck localinstall /software/slurm-rpms/* -y
 
@@ -77,10 +78,22 @@ sudo chkconfig ntpd on
 sudo ntpdate pool.ntp.org
 sudo systemctl start ntpd
 
+while [ ! -f /scratch/daemon.done]
+do
+    sleep 10s
+done
+
 systemctl enable slurmd.service
 systemctl start slurmd.service
-systemctl status slurmd.service
 
 sudo touch /scratch/slurm.done
-#sudo systemctl restart slurmctld
+sudo touch /scratch/head.done
+
+while [ ! -f /scratch/cluster.done]
+do
+    sleep 10s
+done
+
+
+sudo systemctl restart slurmctld
 

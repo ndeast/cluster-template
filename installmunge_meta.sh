@@ -15,7 +15,7 @@ sudo yum install munge munge-libs munge-devel -y
 #wait for head node to copy key
 while [! -f /scratch/munge.key]
 do 
-sleep 10
+    sleep 10
 done
 
 sudo cp /scratch/munge.key /etc/munge/munge.key
@@ -37,9 +37,9 @@ sudo systemctl start munge
 #install slurm
 sudo yum install openssl openssl-devel pam-devel numactl numactl-devel hwloc hwloc-devel lua lua-devel readline-devel rrdtool-devel ncurses-devel man2html libibmad libibumad -y
 
-while [! -f /scratch/slurm.done]
+while [! -f /scratch/rpm.done]
 do
-sleep 5s
+    sleep 5s
 done
 
 sudo yum --nogpgcheck localinstall /software/slurm-rpms/* -y
@@ -61,6 +61,12 @@ sudo systemctl start ntpd
 
 sudo systemctl enable slurmdbd
 sudo systemctl start slurmdbd
+
+sudo touch /scratch/database.done
+
+yes | sudo sacctmgr add cluster cluster
+
+sudo touch /scratch/cluster.done
 
 
 
