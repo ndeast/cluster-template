@@ -49,6 +49,7 @@ for i in range(6):
   elif i == 1:
     node = request.XenVM("metadata")
     node.addService(pg.Execute(shell="sh", command="sudo yum -y install nfs-utils"))
+    node.addService(pg.Execute(shell="sh", command="sleep 20m"))
     node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/mapdrivestometa.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/mapdrivestometa.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo cp /local/repository/createsql.sh /scratch/createsql.sh"))
