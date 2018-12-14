@@ -34,6 +34,7 @@ sudo systemctl enable munge
 sudo systemctl start munge
 
 
+
 #install slurm
 sudo yum install openssl openssl-devel pam-devel numactl numactl-devel hwloc hwloc-devel lua lua-devel readline-devel rrdtool-devel ncurses-devel man2html libibmad libibumad -y
 
@@ -57,6 +58,12 @@ sudo chmod 755 /var/log/slurmdbd.log
 sudo touch /var/run/slurmdbd.pid
 sudo chown slurm: /var/run/slurmdbd.pid
 sudo chmod 777 /var/run/slurmdbd.pid
+
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
+
+sudo mysql "-psecretkey" < "/scratch/createsql.sql"
+
 
 sudo yum install ntp -y
 sudo chkconfig ntpd on
