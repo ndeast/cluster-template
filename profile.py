@@ -44,10 +44,12 @@ for i in range(6):
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installnfshead.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_mpi.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_mpi.sh"))
-    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installmunge.sh"))
-    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installmunge.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installmunge_head.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installmunge_head.sh"))
   elif i == 1:
     node = request.XenVM("metadata")
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installmunge_meta.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/installmunge_meta.sh"))
   elif i == 2:
     node = request.XenVM("storage")
     node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/installnfsstorage.sh"))
